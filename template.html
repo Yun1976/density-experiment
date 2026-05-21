@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="doc-title">文档</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --orange: #db6d28;
+    --red: #f85149;
+    --purple: #a371f7;
+    --radius: 6px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem;
+  }
+  h1 { font-size:1.7rem; border-bottom:2px solid var(--border); padding-bottom:.5rem; margin-bottom:1rem; }
+  h2 { font-size:1.25rem; margin:2rem 0 .75rem; color:var(--accent); border-left: 3px solid var(--accent); padding-left:.75rem; }
+  h3 { font-size:1.05rem; margin:1.25rem 0 .5rem; }
+  p,li { margin-bottom:.5rem; }
+  ul,ol { padding-left:1.5rem; margin-bottom:1rem; }
+  blockquote {
+    border-left:3px solid var(--border); padding:.5rem 1rem;
+    margin:1rem 0; background:var(--surface); color:var(--text-muted);
+    border-radius:0 var(--radius) var(--radius) 0;
+  }
+  code {
+    font-family:"Cascadia Code","Fira Code",monospace;
+    background: #1c2128; padding:.15rem .4rem; border-radius:3px; font-size:.88em;
+  }
+  pre {
+    font-family:"Cascadia Code","Fira Code",monospace;
+    background: #1c2128; padding:1rem; border-radius:var(--radius);
+    overflow-x:auto; font-size:.84em; line-height:1.5; margin-bottom:1rem;
+    border:1px solid var(--border);
+  }
+  table { width:100%; border-collapse:collapse; margin:1rem 0; }
+  th,td { border:1px solid var(--border); padding:.45rem .7rem; text-align:left; font-size:.88em; }
+  th { background:var(--surface); font-weight:600; }
+  tr:nth-child(even) { background:rgba(255,255,255,.02); }
+  hr { border:none; border-top:1px solid var(--border); margin:1.5rem 0; }
+  a { color:var(--accent); }
+  strong { color: #e6edf3; }
+
+  /* ====== CARD LAYOUT ENGINE ====== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: .85rem;
+    margin: 1rem 0;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+  .card-label { font-size:.75em; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.25rem; }
+  .card-value { font-size:1.1em; font-weight:600; }
+  .card-desc  { font-size:.82em; color:var(--text-muted); margin-top:.35rem; }
+
+  /* Badges */
+  .badge { display:inline-block; padding:.12rem .5rem; border-radius:3px; font-size:.78em; font-weight:600; }
+  .b-green  { background:rgba(63,185,80,.15); color:var(--green); }
+  .b-yellow { background:rgba(210,153,34,.15); color:var(--yellow); }
+  .b-orange { background:rgba(219,109,40,.15); color:var(--orange); }
+  .b-red    { background:rgba(248,81,73,.15); color:var(--red); }
+  .b-purple { background:rgba(163,113,247,.15); color:var(--purple); }
+  .b-blue   { background:rgba(88,166,255,.15); color:var(--accent); }
+
+  /* Status cards */
+  .status-row {
+    display: flex; flex-wrap: wrap; gap: .75rem;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:1rem; margin:1rem 0;
+  }
+  .status-item { flex:1; min-width:120px; }
+  .status-item .label { font-size:.78em; color:var(--text-muted); }
+  .status-item .value { font-size:1.05em; font-weight:600; }
+
+  /* Timeline / Phase cards */
+  .phase-row { display:flex; flex-wrap:wrap; gap:.85rem; margin:1rem 0; }
+  .phase-card {
+    flex:1; min-width:150px; background:var(--surface);
+    border:1px solid var(--border); border-radius:var(--radius); padding:.85rem;
+  }
+  .phase-card.active { border-color:var(--green); }
+  .phase-num  { font-size:.78em; color:var(--accent); }
+  .phase-title{ font-weight:600; margin:.15rem 0; }
+  .phase-time { font-size:.78em; color:var(--text-muted); }
+  .phase-milestone { font-size:.82em; margin-top:.5rem; }
+
+  /* Formula blocks */
+  .formula-block {
+    background: #1c2128; border:1px solid var(--border); border-radius:var(--radius);
+    padding:.7rem 1rem; text-align:center; font-family:"Cascadia Code","Fira Code",monospace;
+    font-size:1em; margin:.75rem 0;
+  }
+
+  /* List as cards */
+  .list-cards { display:flex; flex-direction:column; gap:.5rem; margin:1rem 0; }
+  .list-card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:.7rem 1rem;
+    display:flex; align-items:flex-start; gap:.75rem;
+  }
+  .list-card .lc-bullet { color:var(--accent); font-weight:bold; flex-shrink:0; }
+  .list-card .lc-body { flex:1; }
+
+  /* Risk matrix */
+  .risk-row {
+    display:flex; align-items:center; gap:.75rem;
+    padding:.55rem .85rem; border-bottom:1px solid var(--border);
+  }
+  .risk-row:last-child { border-bottom:none; }
+  .risk-name { flex:2; font-size:.9em; }
+  .risk-prob { width:60px; text-align:center; }
+  .risk-impact { width:60px; text-align:center; }
+  .risk-action { flex:3; font-size:.82em; color:var(--text-muted); }
+
+  /* TOC */
+  .toc { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:.85rem 1rem; margin:1rem 0; }
+  .toc ol { margin-bottom:0; padding-left:1.3rem; }
+
+  /* Footnotes */
+  .footnote { font-size:.84em; color:var(--text-muted); border-top:1px solid var(--border); padding-top:1rem; margin-top:2rem; }
+
+  /* Loading indicator */
+  #loading {
+    text-align:center; padding:3rem; color:var(--text-muted);
+    display: flex; flex-direction:column; align-items:center; gap:1rem;
+  }
+  .spinner {
+    width:32px; height:32px; border:3px solid var(--border);
+    border-top-color:var(--accent); border-radius:50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* Mobile */
+  @media (max-width:600px) {
+    body { padding:1rem; }
+    .card-grid { grid-template-columns:1fr; }
+    .phase-row { flex-direction:column; }
+    .status-row { flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <span id="loading-msg">加载文档…</span>
+</div>
+
+<div id="content" style="display:none"></div>
+
+<script>
+  /*
+   * CARD RENDERER — 通用 Markdown → HTML 卡片引擎
+   * 用法: 在 HTML 同目录的 .md 文件，或通过 URL 参数 ?md=xxx.md 指定
+   * 约定:
+   *   - h2 开头的章节独立成卡片区域
+   *   - 表格自动美化
+   *   - ## 十二、当前状态 → 状态卡片
+   *   - ## 七、实验阶段  → 阶段时间线卡片
+   *   - ### N.N 指标 → 卡片网格
+   */
+  const params = new URLSearchParams(location.search);
+  const mdFile = params.get('md') || location.pathname.replace(/\.html$/,'.md').split('/').pop();
+
+  function parseMD(text) {
+    const lines = text.split('\n');
+    const tokens = [];
+    let i = 0;
+
+    while (i < lines.length) {
+      const line = lines[i];
+
+      // h1
+      if (/^#\s/.test(line)) {
+        tokens.push({ type:'h1', text:line.replace(/^#\s+/,'') });
+        i++; continue;
+      }
+      // h2
+      if (/^##\s/.test(line)) {
+        tokens.push({ type:'h2', text:line.replace(/^##\s+/,'') });
+        i++; continue;
+      }
+      // h3
+      if (/^###\s/.test(line)) {
+        tokens.push({ type:'h3', text:line.replace(/^###\s+/,'') });
+        i++; continue;
+      }
+      // Blockquote
+      if (/^>\s/.test(line)) {
+        const bq = [];
+        while (i < lines.length && /^>\s/.test(lines[i])) {
+          bq.push(lines[i].replace(/^>\s?/,''));
+          i++;
+        }
+        tokens.push({ type:'blockquote', text:bq.join('<br>') });
+        continue;
+      }
+      // Fenced code block
+      if (/^```/.test(line)) {
+        const lang = line.replace(/^```\s*/,'');
+        const cb = [];
+        i++;
+        while (i < lines.length && !/^```/.test(lines[i])) {
+          cb.push(lines[i]);
+          i++;
+        }
+        i++; // skip closing ```
+        tokens.push({ type:'code', lang, text:cb.join('\n') });
+        continue;
+      }
+      // Table detection: line starts with |
+      if (/^\|/.test(line)) {
+        const rows = [];
+        while (i < lines.length && /^\|/.test(lines[i])) {
+          rows.push(lines[i]);
+          i++;
+        }
+        // Filter separator rows
+        const dataRows = rows.filter(r => !/^\|[\s\-:|]+\|$/.test(r));
+        if (dataRows.length >= 1) {
+          tokens.push({ type:'table', rows: dataRows.map(r => {
+            return r.replace(/^\||\|$/g,'').split('|').map(c => c.trim());
+          })});
+        }
+        continue;
+      }
+      // hr
+      if (/^---/.test(line)) {
+        tokens.push({ type:'hr' });
+        i++; continue;
+      }
+      // Unordered list — collect consecutive
+      if (/^[\-\*]\s/.test(line)) {
+        const items = [];
+        while (i < lines.length && /^[\-\*]\s/.test(lines[i])) {
+          items.push(lines[i].replace(/^[\-\*]\s+/,''));
+          i++;
+        }
+        tokens.push({ type:'ul', items });
+        continue;
+      }
+      // Ordered list
+      if (/^\d+\.\s/.test(line)) {
+        const items = [];
+        while (i < lines.length && /^\d+\.\s/.test(lines[i])) {
+          items.push(lines[i].replace(/^\d+\.\s+/,''));
+          i++;
+        }
+        tokens.push({ type:'ol', items });
+        continue;
+      }
+      // Blank line → paragraph break
+      if (/^\s*$/.test(line)) {
+        i++; continue;
+      }
+      // Paragraph — consume until blank or special line
+      const para = [];
+      while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#|>|```|\||---|[\-\*]\s|\d+\.\s)/.test(lines[i])) {
+        para.push(lines[i]);
+        i++;
+      }
+      if (para.length) tokens.push({ type:'p', text:para.join('\n') });
+    }
+    return tokens;
+  }
+
+  // ---- Semantic section classifiers ----
+
+  function isStatusSection(h2Text) {
+    return /当前状态|状态|运行状态/.test(h2Text);
+  }
+  function isPhaseSection(h2Text) {
+    return /阶段|Phase|实验阶段/.test(h2Text);
+  }
+  function isRiskSection(h2Text) {
+    return /风险/.test(h2Text);
+  }
+  function isMetricsSection(h3Text) {
+    return /指标|Metric/.test(h3Text);
+  }
+
+  // ---- Renderers ----
+
+  function inlineMD(text) {
+    return text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  }
+
+  function renderStatusCard(tokens) {
+    // Extract key-value pairs from the tokens in this section
+    const items = [];
+    for (const t of tokens) {
+      if (t.type === 'table') {
+        for (const row of t.rows) {
+          if (row.length >= 2) items.push({ label:row[0], value:row[1] });
+        }
+      }
+    }
+    if (!items.length) return '';
+    return `<div class="status-row">${items.map(it =>
+      `<div class="status-item"><div class="label">${it.label}</div><div class="value">${it.value}</div></div>`
+    ).join('')}</div>`;
+  }
+
+  function renderPhaseCards(tokens) {
+    const items = [];
+    for (const t of tokens) {
+      if (t.type === 'table') {
+        for (const row of t.rows) {
+          if (row.length >= 2) {
+            items.push({
+              phase: row[0],
+              title: row[1],
+              time: row[2] || '',
+              milestone: row[3] || ''
+            });
+          }
+        }
+      }
+    }
+    if (!items.length) return '';
+    return `<div class="phase-row">${items.map(it =>
+      `<div class="phase-card${/当前|Phase 1/.test(it.phase) ? ' active' : ''}">
+        <div class="phase-num">${it.phase}</div>
+        <div class="phase-title">${it.title}</div>
+        <div class="phase-time">${it.time}</div>
+        <div class="phase-milestone">${it.milestone}</div>
+      </div>`
+    ).join('')}</div>`;
+  }
+
+  function renderMetricCards(tokens) {
+    const items = [];
+    for (const t of tokens) {
+      if (t.type === 'table') {
+        const header = t.rows[0] || [];
+        for (let r = 1; r < t.rows.length; r++) {
+          const row = t.rows[r];
+          if (row.length >= 2) {
+            const card = { label:row[0], value:row[1] };
+            if (row.length >= 3) card.target = row[2];
+            if (row.length >= 4) card.warn = row[3];
+            items.push(card);
+          }
+        }
+      }
+    }
+    if (!items.length) return '';
+    const hasThresholds = items.some(it => it.warn);
+    return `<div class="card-grid">${items.map(it => {
+      let desc = '';
+      if (hasThresholds) {
+        desc = `<span class="badge b-green">正常: ${it.value}</span> `;
+        if (it.warn) desc += `<span class="badge b-yellow">警告: ${it.warn}</span> `;
+        if (it.target) desc += `<span class="badge b-red">危险: ${it.target}</span>`;
+      }
+      return `<div class="card">
+        <div class="card-label">${it.label}</div>
+        <div class="card-value">${hasThresholds ? '' : it.value}</div>
+        ${desc ? `<div class="card-desc">${desc}</div>` : ''}
+        ${!hasThresholds && it.target ? `<div class="card-desc">目标: ${it.target}</div>` : ''}
+      </div>`;
+    }).join('')}</div>`;
+  }
+
+  function renderRiskRows(tokens) {
+    const items = [];
+    for (const t of tokens) {
+      if (t.type === 'table') {
+        for (let r = 1; r < t.rows.length; r++) {
+          const row = t.rows[r];
+          if (row.length >= 2) {
+            items.push({
+              name: row[0],
+              prob: row[1] || '',
+              impact: row[2] || '',
+              action: row[3] || ''
+            });
+          }
+        }
+      }
+    }
+    if (!items.length) return '';
+    const probColor = { '高':'b-red', '中':'b-yellow', '低':'b-green' };
+    return `<div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:1rem 0;">
+      <div class="risk-row" style="font-weight:600;font-size:.82em;color:var(--text-muted);">
+        <span class="risk-name">风险</span>
+        <span class="risk-prob">概率</span>
+        <span class="risk-impact">影响</span>
+        <span class="risk-action">对策</span>
+      </div>
+      ${items.map(it => `
+        <div class="risk-row">
+          <span class="risk-name">${it.name}</span>
+          <span class="risk-prob"><span class="badge ${probColor[it.prob] || 'b-blue'}">${it.prob}</span></span>
+          <span class="risk-impact"><span class="badge ${probColor[it.impact] || 'b-blue'}">${it.impact}</span></span>
+          <span class="risk-action">${it.action}</span>
+        </div>
+      `).join('')}
+    </div>`;
+  }
+
+  function renderFormula(tokens) {
+    // Detect formula-like paragraphs (contain ρ/e/equation markers)
+    const formulas = [];
+    for (const t of tokens) {
+      if (t.type === 'p' && /[ρ∇∂∑∫∏]|\\hat|\\rho|S\(x\)/.test(t.text)) {
+        formulas.push(t.text);
+      }
+    }
+    if (!formulas.length) return '';
+    return formulas.map(f => `<div class="formula-block">${inlineMD(f)}</div>`).join('');
+  }
+
+  // ---- Main render ----
+
+  function render(tokens) {
+    const sections = [];   // [{h2, tokens}]
+    let currentH2 = null;
+    let currentTokens = [];
+    let headerTokens = [];  // before first h2
+
+    for (const t of tokens) {
+      if (t.type === 'h2') {
+        if (currentH2) sections.push({ h2:currentH2, tokens:currentTokens });
+        else if (currentTokens.length) sections.push({ h2:null, tokens:currentTokens, header:true });
+        currentH2 = t.text;
+        currentTokens = [];
+      } else if (t.type === 'h1') {
+        headerTokens.push(t);
+      } else {
+        (currentH2 ? currentTokens : headerTokens).push(t);
+      }
+    }
+    if (currentH2) sections.push({ h2:currentH2, tokens:currentTokens });
+    else if (currentTokens.length) sections.push({ h2:null, tokens:currentTokens, header:true });
+    // Final header tokens
+    if (headerTokens.length && !sections.some(s => s.header)) {
+      sections.unshift({ h2:null, tokens:headerTokens, header:true });
+    }
+
+    let html = '';
+
+    for (const sec of sections) {
+      const isH2 = !!sec.h2;
+
+      if (sec.header) {
+        // Render header tokens
+        for (const t of sec.tokens) {
+          if (t.type === 'h1') {
+            html += `<h1>${inlineMD(t.text)}</h1>`;
+            if (sec.tokens[0]?.text) document.title = t.text + ' — DENSITY-001';
+          } else {
+            html += renderToken(t);
+          }
+        }
+        continue;
+      }
+
+      if (!isH2) continue;
+
+      const h2Text = sec.h2;
+      html += `<h2>${inlineMD(h2Text)}</h2>`;
+
+      const bodyTokens = sec.tokens;
+
+      // ---- Semantic detection ----
+      if (isStatusSection(h2Text)) {
+        html += renderStatusCard(bodyTokens);
+        continue;
+      }
+      if (isPhaseSection(h2Text)) {
+        html += renderPhaseCards(bodyTokens);
+        // Also render description text
+        for (const t of bodyTokens) {
+          if (t.type !== 'table') html += renderToken(t);
+        }
+        continue;
+      }
+      if (isRiskSection(h2Text)) {
+        html += renderRiskRows(bodyTokens);
+        for (const t of bodyTokens) {
+          if (t.type !== 'table') html += renderToken(t);
+        }
+        continue;
+      }
+
+      // Check sub-sections for metric cards
+      let subSections = [];
+      let curH3 = null, curTokens = [];
+      for (const t of bodyTokens) {
+        if (t.type === 'h3') {
+          if (curH3) subSections.push({ h3:curH3, tokens:curTokens });
+          curH3 = t.text; curTokens = [];
+        } else {
+          curTokens.push(t);
+        }
+      }
+      if (curH3) subSections.push({ h3:curH3, tokens:curTokens });
+
+      if (subSections.length) {
+        for (const sub of subSections) {
+          html += `<h3>${inlineMD(sub.h3)}</h3>`;
+          if (isMetricsSection(sub.h3)) {
+            html += renderMetricCards(sub.tokens);
+          }
+          for (const t of sub.tokens) {
+            if (!isMetricsSection(sub.h3) || t.type !== 'table') {
+              html += renderToken(t);
+            }
+          }
+        }
+      } else {
+        html += renderFormula(bodyTokens);
+        for (const t of bodyTokens) {
+          html += renderToken(t);
+        }
+      }
+    }
+
+    return html;
+  }
+
+  function renderToken(t) {
+    switch (t.type) {
+      case 'p': return `<p>${inlineMD(t.text)}</p>`;
+      case 'blockquote': return `<blockquote>${inlineMD(t.text)}</blockquote>`;
+      case 'code': return `<pre>${escHtml(t.text)}</pre>`;
+      case 'table':
+        const header = t.rows[0];
+        const body = t.rows.length > 1 ? t.rows.slice(1) : [];
+        return `<table><thead><tr>${header.map(c => `<th>${inlineMD(c)}</th>`).join('')}</tr></thead>
+          <tbody>${body.map(r => `<tr>${r.map(c => `<td>${inlineMD(c)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+      case 'ul': return `<ul>${t.items.map(it => `<li>${inlineMD(it)}</li>`).join('')}</ul>`;
+      case 'ol': return `<ol>${t.items.map(it => `<li>${inlineMD(it)}</li>`).join('')}</ol>`;
+      case 'hr': return '<hr>';
+      case 'h2': return `<h2>${inlineMD(t.text)}</h2>`;
+      case 'h3': return `<h3>${inlineMD(t.text)}</h3>`;
+      default: return '';
+    }
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ---- Boot ----
+
+  async function boot() {
+    const msg = document.getElementById('loading-msg');
+    const loader = document.getElementById('loading');
+    const content = document.getElementById('content');
+
+    if (!mdFile || mdFile === '.md') {
+      msg.textContent = '未指定 .md 文件。用法: ?md=EXPERIMENT_DESIGN.md';
+      return;
+    }
+
+    msg.textContent = `加载 ${mdFile}…`;
+    try {
+      const resp = await fetch(mdFile);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const text = await resp.text();
+      const tokens = parseMD(text);
+      const html = render(tokens);
+      content.innerHTML = html;
+      loader.style.display = 'none';
+      content.style.display = '';
+    } catch (e) {
+      msg.textContent = `加载失败: ${e.message}`;
+    }
+  }
+
+  boot();
+</script>
+</body>
+</html>
