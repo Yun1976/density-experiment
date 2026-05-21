@@ -1,5 +1,10 @@
-# Memory — personal context, never commit
-memory/
+# Memory — personal daily logs, never commit
+memory/202?-*.md
+memory/2*-*-*.md
+MEMORY.md
+
+# Memory — keep knowledge archive in repo
+!memory/KNOWLEDGE_ARCHIVE.md
 
 # Temporary files
 tmp/
