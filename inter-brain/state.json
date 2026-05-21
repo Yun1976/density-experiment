@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "system": "观自在 AI Agent",
+  "last_updated": "2026-05-17T10:15:00Z",
+  "systems": {
+    "openclaw": {
+      "role": "任务编排/调度",
+      "alias": "闻声",
+      "status": "unknown",
+      "version": null,
+      "last_heartbeat": null
+    },
+    "hermes": {
+      "role": "飞书通讯+深度思考",
+      "alias": "千手",
+      "status": "unknown",
+      "version": null,
+      "last_heartbeat": null
+    },
+    "claude_code": {
+      "role": "右脑/系统维护",
+      "alias": "净瓶",
+      "status": "unknown",
+      "version": null,
+      "last_heartbeat": null
+    }
+  },
+  "inter_brain": {
+    "pending_tasks": 0,
+    "completed_tasks": 0,
+    "failed_tasks": 0
+  },
+  "shared_knowledge": {
+    "vault_path": "D:/AI WORK/obsidian-vault",
+    "file_count": 0,
+    "last_sync": null
+  }
+}

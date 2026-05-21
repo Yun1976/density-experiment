@@ -1,0 +1,31 @@
+{
+  "gateway": {
+    "nodes": {
+      "allowCommands": [
+        "file.fetch",
+        "file.write",
+        "dir.list",
+        "dir.fetch"
+      ]
+    }
+  },
+  "plugins": {
+    "entries": {
+      "file-transfer": {
+        "enabled": true,
+        "config": {
+          "nodes": {
+            "1503219a18c173a5568a9cfab3db17f1020a56f8ea9dfeba727b0e3d8f84aa84": {
+              "allowReadPaths": [
+                "E:\\obsidian-vault"
+              ],
+              "allowWritePaths": [
+                "E:\\obsidian-vault"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

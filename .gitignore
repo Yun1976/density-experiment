@@ -1,0 +1,36 @@
+# Memory — personal context, never commit
+memory/
+
+# Temporary files
+tmp/
+temp_*
+*.tmp
+
+# Heartbeat
+HEARTBEAT.md
+
+# Obsidian vault symlink/copy
+obsidian-vault/
+
+# Feishu plugin data
+.openclaw/plugin-data/
+
+# Sensitive config
+.openclaw/config.yaml
+.openclaw/secrets.yaml
+
+# Node modules
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large binary
+*.exe
+*.dll
+*.bin
