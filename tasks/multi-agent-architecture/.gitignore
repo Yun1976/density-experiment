@@ -1,0 +1,5 @@
+# Temporary debug/archive scripts
+*.ps1
+TASK_archive_content.txt
+TASK_part1.txt
+TASK_remainder.txt
