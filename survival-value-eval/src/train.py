@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-NoteBase · 信息存活价值评估器 —— QLoRA 微调脚本
+端点星 · 信息存活价值评估器 —— QLoRA 微调脚本
 运行环境: Windows + NVIDIA 5060 Ti (16GB)
 用法:
   1. 先装依赖:  pip install -r requirements.txt
@@ -86,4 +86,4 @@ trainer.train()
 trainer.save_model(OUTPUT_DIR)
 tokenizer.save_pretrained(OUTPUT_DIR)
 print(f'\n✓ 训练完成! LoRA adapter 已存到 {OUTPUT_DIR}')
-print('  把整个 output 文件夹拷回 U 盘, 带回给NoteBase。')
+print('  把整个 output 文件夹拷回 U 盘, 带回给端点星。')
