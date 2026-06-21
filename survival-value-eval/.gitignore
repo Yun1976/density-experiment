@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+build/
+dist/
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# Training artifacts
+output/
+predictions.json
+*.bin
+
+# Large data (不含原始数据, 只保留 sample)
+*.jsonl
+!data/sample.jsonl
+
+# Downloaded wheels / cache
+.dl/
+*.whl
+.cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
