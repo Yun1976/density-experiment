@@ -21,8 +21,17 @@
 ```
 EXPERIMENT_DESIGN.md   — 完整实验方案（统一基底）
 template.html          — Markdown→卡片渲染模板（纯前端）
+survival-value-eval/   — 笔记存活价值评估子项目（LLM vs 回归）
 README.md              — 本文件
 ```
+
+## 子项目
+
+### [survival-value-eval](survival-value-eval/) — 笔记存活价值评估（LLM vs 回归）
+
+信息密度实验的下游应用：用机器学习自动评估笔记的「信息存活价值」(1–5 分)，对比 **LLM QLoRA 微调 / TF-IDF 回归 / 混合模型**三条路线。
+
+**核心发现**：小数据(~300 条)下，简单 TF-IDF + Ridge 回归 (ρ=0.778) 显著优于 3B LLM 微调 (0.466)；混合需门控，简单 ensemble 反被拖累(0.65)。详见 [survival-value-eval/README.md](survival-value-eval/README.md) 与 [survival-value-eval/docs/lessons.md](survival-value-eval/docs/lessons.md)。
 
 ## 关键概念
 
