@@ -125,10 +125,11 @@ Handoff（交验收摘要已存在；**本报告不伪造新签收**）：
 
 ## 8. 本文件 SHA
 
-```
-f062c508fa34b247604c9a3dc320c9eb47b4fe17d2e613e6e24c92ab923992d5
-```
+| 口径 | SHA256 |
+|---|---|
+| 验收权威快照（GitHub `627d940` · LF · 签收所用） | `76fda72528acbe56cdb4b2a4b5d6b3c0cc9d5f3c883b2e61eaffd6fd39110a05` |
+| 旧自称 `eb6b56c4…` | **作废**（与实测不符） |
 
 - **Absolute path**: `D:\AI WORK\docs\2026-10-16-DENSITY-STAGE-REPORT.md`
-- **Hash scope (fence)**: UTF-8 bytes from start through newline before fenced block.
-- **SHA256 of full md file**: `eb6b56c484d9a663abe4cd75330b17dd2dbf7bf4d4fe257f135ebd90f0595b42`
+- **Hash scope**: 全文件 UTF-8；历史签收以验收闸 LF `76fda725…0a05` 为准。
+- **本修订全文件 SHA256（LF）**: `dcc2b4aeb798580d5f45d16c309ddeaae3165bb64718a72b7396be0872b3b0a0`
