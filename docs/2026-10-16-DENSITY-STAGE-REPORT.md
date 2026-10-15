@@ -116,8 +116,7 @@ Handoff（交验收摘要已存在；**本报告不伪造新签收**）：
 ## 7. 风险与诚信门
 
 - **SIM ≠ LIVE**：OOD 为 candidate-tagged proxies，非 held-out runner；禁止对外写成已 LIVE 选优。
-- **Arm1 `mean_e` ≠ Ridge r² / L-FRAUD 0.778**：残差 u−ρ，禁止混引。
-ho\)，禁止混引。
+- **Arm1 `mean_e` ≠ Ridge r² / L-FRAUD 0.778**：残差为 u−ρ，禁止与 Ridge/L-FRAUD 混引。
 - **char/4 ≠ measurable**：不能解锁 e 进 J。
 - **NylonME DSH ≠ 端点星 DSH**。
 - **观自在**（不是「关自在」）。
@@ -127,9 +126,9 @@ ho\)，禁止混引。
 ## 8. 本文件 SHA
 
 ```
-986a6f8013ac287317f2fe0a93f7ee4ac62ddc3ff21e2ba2ac1198e9a87cb75b
+f062c508fa34b247604c9a3dc320c9eb47b4fe17d2e613e6e24c92ab923992d5
 ```
 
 - **Absolute path**: `D:\AI WORK\docs\2026-10-16-DENSITY-STAGE-REPORT.md`
 - **Hash scope (fence)**: UTF-8 bytes from start through newline before fenced block.
-- **SHA256 of full md file**: `5f5845313838f51e04eca1cabd6254e69360b0ec86378edc03c32fcea828c1f5`
+- **SHA256 of full md file**: `eb6b56c484d9a663abe4cd75330b17dd2dbf7bf4d4fe257f135ebd90f0595b42`
